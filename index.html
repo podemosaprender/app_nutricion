@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+    <title>Podemos Aprendero</title>
+ 
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+
+					OjO:SEC:permitir todo pero todo!
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src * gap: data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
+  </head>
+  <body>
+		<!-- A: falla en browser PERO lo usamos para apk android/cordova -->
+    <script type="text/javascript" src="cordova.js"></script>
+		<h1>Hola</h1>
+
+		<div id="status">Cargando...</div>
+
+		<button id="scan">Leer código</button>
+
+		<script>
+			//============================================================
+			//S: barcode
+
+			Capture_barcode_Opts= { //DFLT
+							preferFrontCamera : false, // iOS and Android
+							showFlipCameraButton : true, // iOS and Android
+							showTorchButton : true, // iOS and Android
+							torchOn: false, // Android, launch with the torch switched on (if available)
+							saveHistory: true, // Android, save scan history (default false)
+							prompt : "Place a barcode inside the scan area", // Android
+							resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+							formats : "QR_CODE,PDF_417,EAN_13", // leyo DNI, qr wikipedia y codigo barras libro
+							orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+							disableAnimations : true, // iOS disable
+							SuccessBeep: false // iOS and Android
+						}
+
+			function capture_barcode_p(opts) {
+							//SEE: https://www.npmjs.com/package/cordova-plugin-qr-barcode-scanner
+							opts= opts || Capture_barcode_Opts;
+							return new Promise( (onBarCodeOk, onBarCodeError) =>
+											cordova.plugins.barcodeScanner.scan( onBarCodeOk, onBarCodeError, opts));
+						}
+
+
+
+			function _init() {
+				btnSts= document.getElementById("status");
+				btnScan= document.getElementById("scan");
+
+				btnSts.innerHTML= "Listo!";
+				btnScan.onclick= function (ev) {
+					btnSts.innerHTML= "Leyendo";
+					capture_barcode_p()
+						.then( codigo => { btnSts.innerHTML="Lei <b>"+JSON.stringify(codigo)+"</b>" });
+				}
+			}
+
+			document.addEventListener("deviceready", _init, false);
+		</script>
+	</body>
+</html>
+
