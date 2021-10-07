@@ -34,6 +34,12 @@
 		<button id="scan">Leer código</button>
 
 		<script>
+			//S: datos
+
+			DATOS= {
+				"0475019546625": "Libro de Mau en la demo",
+			}
+
 			//============================================================
 			//S: barcode
 
@@ -68,11 +74,31 @@
 				btnScan.onclick= function (ev) {
 					btnSts.innerHTML= "Leyendo";
 					capture_barcode_p()
-						.then( codigo => { btnSts.innerHTML="Lei <b>"+JSON.stringify(codigo)+"</b>" });
+						.then( codigo => { 
+							var id= codigo.text;
+							var dato= DATOS[id];
+							btnSts.innerHTML="Lei <b>"+JSON.stringify(codigo)+"</b>"+
+								"<br>"+(dato || "ese codigo no figura en nuestra base");
+						});
 				}
 			}
 
 			document.addEventListener("deviceready", _init, false);
+
+			emularLecturas= [
+				{text: "0475019546625"},
+				{text: "666"},
+				{error: "errorisimo"}, //TODO: que devuelve cuando usuaria cancela o da error
+			];
+
+			emularLecturasIdx= -1;
+			function emularCordova() {
+				_init();
+				capture_barcode_p= function () { 
+					emularLecturasIdx= (emularLecturasIdx + 1) % emularLecturas.length;
+					return Promise.resolve(emularLecturas[ emularLecturasIdx ]); 
+				}
+			}
 		</script>
 	</body>
 </html>
