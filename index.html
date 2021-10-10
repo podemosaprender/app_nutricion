@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <head>
-    <title>Podemos Aprendero</title>
- 
+
+<head>
+
+	<head>
+		<title>Podemos Aprender</title>
+
 		<meta name="format-detection" content="telephone=no">
 		<meta name="msapplication-tap-highlight" content="no">
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<meta name="viewport"
+			content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <!--
+		<!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
         Some notes:
@@ -22,84 +25,137 @@
 
 					OjO:SEC:permitir todo pero todo!
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src * gap: data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
-  </head>
-  <body>
-		<!-- A: falla en browser PERO lo usamos para apk android/cordova -->
-    <script type="text/javascript" src="cordova.js"></script>
-		<h1>Hola</h1>
+		<meta http-equiv="Content-Security-Policy"
+			content="default-src * gap: data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+		<link href="css/index.css" rel="stylesheet" />
+	</head>
 
-		<div id="status">Cargando...</div>
+<body>
+	<!-- A: falla en browser PERO lo usamos para apk android/cordova -->
+	<script type="text/javascript" src="cordova.js"></script>
+	<div class="w90 mx-auto wrapper text-center" id="titulo">
+		<h1 class="w50 mx-auto">Barras</h1>
+	</div>
 
-		<button id="scan">Leer código</button>
+	<!-- <div id="status">Cargando...</div> -->
+	<div class='wrapper text-center'>
+		<div class="btn-group  mx-auto">
+			<button id="scan" type="button" class="btn btn-outline-primary ">Nuevo scan</button>
+		</div>
+	</div>
+	<div class='row justify-content-center w90 '>
+		<p id="Instrucciones">Clickeá el botón y apuntá la cámara de tu celu al código de barras.<br>
+			Si está en la base de datos, vas a ver la info de este alimento
+		</p>
+		<table id="ScanTable" class="w90 table invisible">
 
-		<script>
-			//S: datos
+			<thead>
+				<tr>
+					<th colspan="3">Información nutricional <br> por porción</th>
+				</tr>
+				<tr>
+					<th colspan="3" id="marcaProd"></th>
+				</tr>
 
-			DATOS= {
-				"0475019546625": "Libro de Mau en la demo",
+			</thead>
+			<tbody id="ScanTableBody">
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		let ScanTable = document.getElementById("ScanTable")
+		let codigoScan = ""
+		let emularLecturasIdx = -1;
+
+		//============================================================
+		//S: barcode
+
+		Capture_barcode_Opts = { //DFLT
+			preferFrontCamera: false, // iOS and Android
+			showFlipCameraButton: true, // iOS and Android
+			showTorchButton: true, // iOS and Android
+			torchOn: false, // Android, launch with the torch switched on (if available)
+			saveHistory: true, // Android, save scan history (default false)
+			prompt: "Place a barcode inside the scan area", // Android
+			resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+			formats: "QR_CODE,PDF_417,EAN_13", // leyo DNI, qr wikipedia y codigo barras libro
+			orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+			disableAnimations: true, // iOS disable
+			SuccessBeep: false // iOS and Android
+		}
+
+		function capture_barcode_p(opts) {
+			//SEE: https://www.npmjs.com/package/cordova-plugin-qr-barcode-scanner
+			opts = opts || Capture_barcode_Opts;
+			return new Promise((onBarCodeOk, onBarCodeError) =>
+				cordova.plugins.barcodeScanner.scan(onBarCodeOk, onBarCodeError, opts));
+		}
+
+
+
+		function _init() {
+			btnSts = document.getElementById("status");
+			btnScan = document.getElementById("scan");
+
+			//btnSts.innerHTML = "Listo!";
+			btnScan.onclick = function (ev) {
+				armarTabla()
+				/* 				btnSts.innerHTML = "Leyendo";
+								capture_barcode_p()
+									.then(lectura => {
+										codigo = JSON.stringify(lectura)
+										btnSts.innerHTML = "Lei <b>" + JSON.stringify(codigo) + "</b>"
+				
+									});
+								{ btnSts.innerHTML = "Lei <b>" + JSON.stringify(codigo) + "</b>" } */
 			}
+		}
 
-			//============================================================
-			//S: barcode
+		document.addEventListener("deviceready", _init, false);
 
-			Capture_barcode_Opts= { //DFLT
-							preferFrontCamera : false, // iOS and Android
-							showFlipCameraButton : true, // iOS and Android
-							showTorchButton : true, // iOS and Android
-							torchOn: false, // Android, launch with the torch switched on (if available)
-							saveHistory: true, // Android, save scan history (default false)
-							prompt : "Place a barcode inside the scan area", // Android
-							resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-							formats : "QR_CODE,PDF_417,EAN_13", // leyo DNI, qr wikipedia y codigo barras libro
-							orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-							disableAnimations : true, // iOS disable
-							SuccessBeep: false // iOS and Android
-						}
-
-			function capture_barcode_p(opts) {
-							//SEE: https://www.npmjs.com/package/cordova-plugin-qr-barcode-scanner
-							opts= opts || Capture_barcode_Opts;
-							return new Promise( (onBarCodeOk, onBarCodeError) =>
-											cordova.plugins.barcodeScanner.scan( onBarCodeOk, onBarCodeError, opts));
-						}
+		emularLecturas = [
+			{ Marca: "Gallo", Producto: "Doble Carolina", ValorEner: ["170kCal", "8"], Carbohidratos: ["39", "13"], Proteinas: ["3,4", "5"], Grasas: ["0", "0"], GSaturadas: ["0", "0"] },
+			{ Marca: "Deubel", Producto: "Palmerita", ValorEner: ["131kCal", "7"], Carbohidratos: ["14,7", "5"], Proteinas: ["1,1", "1"], Grasas: ["7,5", "14"], GSaturadas: ["4,4", "20"] },
+			{ Marca: "La Serenísima", Producto: "Manteca", ValorEner: ["74kCal", "4"], Carbohidratos: ["0", "0"], Proteinas: ["0", "0"], Grasas: ["8,2", "15"], GSaturadas: ["5,2", "24"] },
+		];
 
 
+		/* 		function emularCordova() {
+					_init();
+					capture_barcode_p = function () {
+						emularLecturasIdx = (emularLecturasIdx + 1) % emularLecturas.length;
+						return Promise.resolve(emularLecturas[emularLecturasIdx]);
+					}
+				} */
 
-			function _init() {
-				btnSts= document.getElementById("status");
-				btnScan= document.getElementById("scan");
+		function armarTabla() {
+			emularLecturasIdx = (emularLecturasIdx + 1) % emularLecturas.length;
+			estaLectura = emularLecturas[emularLecturasIdx]
+			lecturaKeys = Object.keys(estaLectura)
+			length = lecturaKeys.length;
+			document.getElementById("ScanTable").classList.remove("invisible")
+			document.getElementById("Instrucciones").classList.add("displayNone")
+			let tablaArmada = '<tr><td></td><td class="bold">Cantidad</td><td class="bold">%VD</td><?tr>'
 
-				btnSts.innerHTML= "Listo!";
-				btnScan.onclick= function (ev) {
-					btnSts.innerHTML= "Leyendo";
-					capture_barcode_p()
-						.then( codigo => { 
-							var id= codigo.text;
-							var dato= DATOS[id];
-							btnSts.innerHTML="Lei <b>"+JSON.stringify(codigo)+"</b>"+
-								"<br>"+(dato || "ese codigo no figura en nuestra base");
-						});
-				}
+			for (i = 2; i < length; i++) {
+				tablaArmada += `<tr>
+							<td class="bold"> ${lecturaKeys[i]}</td>
+							<td>${estaLectura[lecturaKeys[i]][0]}</td>
+							<td>${estaLectura[lecturaKeys[i]][1]}</td>
+						</tr>
+						`
+
 			}
+			document.getElementById("ScanTableBody").innerHTML = tablaArmada
+			document.getElementById("marcaProd").innerHTML = `${estaLectura[lecturaKeys[0]]}, ${estaLectura[lecturaKeys[1]]}<br> ${codigoScan}`
+		}
+		_init()
+	</script>
+</body>
 
-			document.addEventListener("deviceready", _init, false);
-
-			emularLecturas= [
-				{text: "0475019546625"},
-				{text: "666"},
-				{error: "errorisimo"}, //TODO: que devuelve cuando usuaria cancela o da error
-			];
-
-			emularLecturasIdx= -1;
-			function emularCordova() {
-				_init();
-				capture_barcode_p= function () { 
-					emularLecturasIdx= (emularLecturasIdx + 1) % emularLecturas.length;
-					return Promise.resolve(emularLecturas[ emularLecturasIdx ]); 
-				}
-			}
-		</script>
-	</body>
 </html>
-

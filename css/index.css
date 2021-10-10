@@ -1,0 +1,85 @@
+:root {
+    --black: #0B0C10;
+    --darkgray:#1F2833;
+    --gray: #C5C6C7;
+    --lightblue: #66FCF1;
+    --bluegreen:#45A29E;
+}
+
+body {
+    background-color: whitesmoke;
+    color:var(--bluegreen);
+    font-family: "Raleway", sans-serif;
+    width:100vw;
+    height: 100vh;
+    position:absolute
+}
+
+.w90{
+    display:block;
+    width:90%;
+  }
+
+  .w50{
+    width:50%;
+    display:block
+}
+  .btn-outline-primary{
+      color:var(--bluegreen);
+      border-color: var(--bluegreen);
+  }
+
+  .btn-outline-primary:active {
+    color: var(--bluegreen);
+}
+
+.btn-outline-primary:focus {
+    color:var(--bluegreen);
+    border-color: var(--bluegreen);
+    background-color: whitesmoke;
+}
+  .txtCenter{
+    text-align:center;
+  }
+.displayNone{
+    display:none
+}
+  
+  #titulo{
+      margin-top: 3em;
+    }
+   
+   #Instrucciones{
+       margin-top: 2em;
+       color:var(--lightblue);
+       background-color: var(--darkgray);
+       width:100%;
+       padding:1em;
+       font-size: 0.85em;
+       text-align: center;
+   }
+    #ScanTable{
+      background-color: transparent      
+  }
+
+  #ScanTable thead{
+      color:var(--lightblue);
+      background-color: var(--darkgray);
+}
+#ScanTable{
+    text-align: center;
+    margin-top: 3%;
+
+}
+
+#ScanTable td{
+    text-align: left;
+    width:32%
+}
+.bold{
+    font-weight: bold;
+}
+
+#ScanTableBody{
+    background-color: var(--gray);
+}
