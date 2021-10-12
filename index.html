@@ -105,7 +105,7 @@
 			}
 
 			document.addEventListener("deviceready", _init, false);
-      /*
+      
 			emularLecturas= [
 				{text: "0475019546625"},
 				{text: "666"},
@@ -115,12 +115,11 @@
 			emularLecturasIdx= -1;
 			function emularCordova() {
 				_init();
-				capture_barcode_p = function () { 
-					emularLecturasIdx = (emularLecturasIdx + 1) % emularLecturas.length;
+				capture_barcode_p= function () { 
+					emularLecturasIdx= (emularLecturasIdx + 1) % emularLecturas.length;
 					return Promise.resolve(emularLecturas[ emularLecturasIdx ]); 
 				}
 			}
-      */
 		</script>
 	</body>
 </html>
