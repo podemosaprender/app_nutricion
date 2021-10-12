@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('normalize.css');
+
+:root{
+  --verdecito: #037334;
+  --celeste: #AEBFB1;
+  --amarillito: #F2EA77; 
+  --amarillo:#D9BB25;
+  --marron: #BF8B4B;
+  --letra: #010100;
+  --amarillito2: #eeec71;
+}
+
+#container{
+  height: 100vh;
+}
+#first_half{
+  background-color: var(--amarillito2);
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+#second_half{
+  background-color: var(--marron);
+  height: 50%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+footer{
+  background-color: var(--verdecito);
+  height: 10%;
+  margin-top: 0;
+}
+
+#title{
+  text-align: center;
+  color: var(--letra);
+  font-family: 'Righteous', cursive;
+  margin:0;
+  font-size: 4rem;
+}
+
+#scanner{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#scan{
+  font-family: 'Righteous', cursive;
+  border-radius: 15px;
+  padding: 24px 32px;
+  border: 0;
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  background-color: var(--celeste);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--letra);
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor:pointer;
+}
+#scan:active{
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
+}
+
+#credits{
+  color: antiquewhite;
+  font-family: 'Righteous', cursive;
+  margin: 0;
+  padding: .5rem;
+  text-align: center;
+}
+
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.azucar{
+  background-image: url(img/azucar.png);
+  height: 70px;
+  width: 70px;
+}
+.sodio{
+  background-image: url(img/sodio.png);
+  height: 70px;
+  width: 70px;
+}
+.grasas{
+  background-image: url(img/grasas.png);
+  height: 70px;
+  width: 70px;
+}
+.grasas-sat{
+  background-image: url(img/grasas-sat.png);
+  height: 70px;
+  width: 70px;
+}
+.calorias{
+  background-image: url(img/calorias.png);
+  height: 70px;
+  width: 70px;
+}
+.edulcorante{
+  background-image: url(img/edulcorantes.png);
+  height: 37px;
+  width: 176px;
+}
+.cafeina{
+  background-image: url(img/cafeina.png);
+  height: 37px;
+  width: 135px;
+}

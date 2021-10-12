@@ -2,8 +2,8 @@
 <html>
   <head>
     <head>
-    <title>Podemos Aprendero</title>
- 
+    <title>Podemos Aprender</title>
+    <link rel="stylesheet" href="style.css">
 		<meta name="format-detection" content="telephone=no">
 		<meta name="msapplication-tap-highlight" content="no">
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -27,12 +27,33 @@
   <body>
 		<!-- A: falla en browser PERO lo usamos para apk android/cordova -->
     <script type="text/javascript" src="cordova.js"></script>
-		<h1>Hola</h1>
-
-		<div id="status">Cargando...</div>
-
-		<button id="scan">Leer código</button>
-
+    <div id="container">
+      <div id="first_half">
+        <h1 id="title">nutri</h1>
+        <div id="scanner">
+          <div id="status"></div>
+          <button id="scan">Leer código</button>
+        </div>
+      </div>
+      <div id="second_half">
+        <div class="row">
+          <div class="azucar"></div>
+          <div class="cafeina"></div>
+          <div class="sodio"></div>  
+        </div>
+        <div class="row">
+          <div class="grasas"></div>
+          <div class="grasas-sat"></div>
+          <div class="calorias"></div>
+        </div>
+        <div class="row">
+          <div class="edulcorante"></div>
+        </div>
+      </div>
+      <footer>
+        <p id=credits>App hecha por Podemos Aprender</p>
+      </footer>
+    </div>
 		<script>
 			//S: datos
 
@@ -84,7 +105,7 @@
 			}
 
 			document.addEventListener("deviceready", _init, false);
-
+      /*
 			emularLecturas= [
 				{text: "0475019546625"},
 				{text: "666"},
@@ -94,11 +115,12 @@
 			emularLecturasIdx= -1;
 			function emularCordova() {
 				_init();
-				capture_barcode_p= function () { 
-					emularLecturasIdx= (emularLecturasIdx + 1) % emularLecturas.length;
+				capture_barcode_p = function () { 
+					emularLecturasIdx = (emularLecturasIdx + 1) % emularLecturas.length;
 					return Promise.resolve(emularLecturas[ emularLecturasIdx ]); 
 				}
 			}
+      */
 		</script>
 	</body>
 </html>
