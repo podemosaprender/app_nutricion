@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('normalize.css');
 
+/*
 :root{
   --verdecito: #037334;
   --celeste: #AEBFB1;
@@ -9,28 +10,28 @@
   --amarillo:#D9BB25;
   --marron: #BF8B4B;
   --letra: #010100;
-  --amarillito2: #eeec71;
+  --amarillito2: #EEEC71;
 }
-
+*/
 #container{
   height: 100vh;
 }
 
 /* 3 sections */
 #first_half{
-  background-color: var(--amarillito2);
+  background-color: #EEEC71;
   height: 40%;
   padding-bottom: .2rem;
 }
 #second_half{
-  background-color: var(--marron);
+  background-color: #BF8B4B;
   height: 50%; 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 footer{
-  background-color: var(--verdecito);
+  background-color: #037334;
   height: 10%;
   margin-top: 0;
 }
@@ -38,7 +39,7 @@ footer{
 /* first half */
 #title{
   text-align: center;
-  color: var(--letra);
+  color: #010100;
   font-family: 'Righteous', cursive;
   margin:0;
   font-size: 4rem;
@@ -83,18 +84,22 @@ img{
   max-height: 50px;
   text-align: center;
 }
+button:hover, button:focus {
+  outline: none;
+}
 #scan{
   font-family: 'Righteous', cursive;
   border-radius: 15px;
   padding: 18px 38px;
   border: 0;
   box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
-  background-color: var(--celeste);
+  background-color: #AEBFB1;
   border: 1px solid rgba(255,255,255,0.1);
-  color: var(--letra);
+  color: #010100;
   font-size: 1rem;
   text-transform: uppercase;
   cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 #scan:active{
   transform: scale(0.98);
@@ -111,52 +116,59 @@ img{
   align-items: center;
 }
 
+#faltanNutrientes{
+  text-align: center;
+  color: #010100;
+  font-family: 'Righteous', cursive;
+  display: none;
+}
+
 #azucar{
   background-image: url(img/azucar.png);
   height: 70px;
   width: 70px;
-  visibility: hidden;
+  display: none;
 }
 #sodio{
   background-image: url(img/sodio.png);
   height: 70px;
   width: 70px;
-  visibility: hidden;
+  display: none;
 }
 #grasas{
   background-image: url(img/grasas.png);
   height: 70px;
   width: 70px;
-  visibility: hidden;
+  display: none;
 }
 #grasas-sat{
   background-image: url(img/grasas-sat.png);
   height: 70px;
   width: 70px;
-  visibility: hidden;
+  display: none;
 }
 #calorias{
   background-image: url(img/calorias.png);
   height: 70px;
   width: 70px;
-  visibility: hidden;
+  display: none;
 }
 #edulcorante{
   background-image: url(img/edulcorantes.png);
   height: 37px;
   width: 176px;
-  visibility: hidden;
+  display: none;
 }
 #cafeina{
   background-image: url(img/cafeina.png);
   height: 37px;
   width: 135px;
-  visibility: hidden;
+  display: none;
 }
 
 /* footer */
 #credits{
-  color: antiquewhite;
+  color: #FAEBD7;
   font-family: 'Righteous', cursive;
   margin: 0;
   padding: .1rem;

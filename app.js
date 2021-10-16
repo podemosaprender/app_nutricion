@@ -55,8 +55,16 @@ function paintFrontEnd(data,id){
     btnSts.textContent= data.product.product_name;
     barInfo.textContent= "El codigo es: " + data.code;
     
+    //colocar imagen thumb del procuto
     if(data.product.image_front_thumb_url.length>0){
       img.src= data.product.image_front_thumb_url; 
+    }
+
+    //warning si no hay datos
+    if(!('sodium' in data.product.nutriments &&
+       'sugars' in data.product.nutriments && 
+        'fat' in data.product.nutriments)){
+      document.getElementById('faltanNutrientes').style.display= 'flex';
     }
     mostrarOctogonos(data.product.nutriments);
   }
@@ -91,25 +99,25 @@ function emularCordova() {
 function mostrarOctogonos(nutriments){
   console.log(nutriments);
   if(excesoAzucar(nutriments)){
-    document.getElementById('azucar').style.visibility= 'visible';
+    document.getElementById('azucar').style.display= 'flex';
   }
   if(excesoSodio(nutriments)){
-    document.getElementById('sodio').style.visibility= 'visible';
+    document.getElementById('sodio').style.display= 'flex';
   }
   if(excesoGrasas(nutriments)){
-    document.getElementById('grasas').style.visibility= 'visible';
+    document.getElementById('grasas').style.display= 'flex';
   }
   if(excesoGrasasSat(nutriments)){
-    document.getElementById('grasas-sat').style.visibility= 'visible';
+    document.getElementById('grasas-sat').style.display= 'flex';
   }
   if(excesoCalorias(nutriments)){
-    document.getElementById('calorias').style.visibility= 'visible';
+    document.getElementById('calorias').style.display= 'flex';
   }
   if(contieneEdulcorantes(nutriments)){
-    document.getElementById('edulcorante').style.visibility= 'visible';
+    document.getElementById('edulcorante').style.display= 'flex';
   }
   if(contieneCafeina(nutriments)){
-    document.getElementById('cafeina').style.visibility= 'visible';
+    document.getElementById('cafeina').style.display= 'flex';
   }
 }
 
@@ -117,8 +125,9 @@ function limpiarOctogonos(){
   var octogonos= document.getElementsByClassName('octogonos');
   console.log(octogonos);
   Array.from(octogonos).forEach(function clean(octogono){
-    octogono.style.visibility= 'hidden';
+    octogono.style.display= 'none';
   });
+  document.getElementById('faltanNutrientes').style.display= 'none';
 }
 
 
