@@ -30,6 +30,7 @@ function _init() {
 
   btnSts.innerHTML= "Listo!";
   btnScan.onclick= function (ev) {
+    limpiarOctogonos();
     btnSts.innerHTML= "Leyendo";
     capture_barcode_p()
       .then( codigo => { 
@@ -45,6 +46,7 @@ function _init() {
 
 document.addEventListener("deviceready", _init, false);
 
+//DIBUJAR FRONT DESPUES DE ESCANEAR EL PRODUCTO
 function paintFrontEnd(data,id){
   barInfo= document.getElementById('bar-info');
   info= document.getElementById('info');
@@ -69,6 +71,7 @@ function paintFrontEnd(data,id){
 //EMULAR LECTURAS EN LA PC
 emularLecturas= [
   {text: "7790040929906"}, //chocolinas, todos los datos
+  {text: "7794520868341"}, //papitas
   {text: "7791058010662"}, //dulce de leche mafrey, todos los datos
   {text: "7622210812797"}, //juguito, no hay nutrientes. Lo mandas a openfoodfacts a rellenar?
   {text: "7622210852797"}, //no existe el producto. Lo mandas a openfoodfacts a agregar?
@@ -83,13 +86,15 @@ function emularCordova() {
   _init();
 }
 
+
+//OCTOGONOS
 function mostrarOctogonos(nutriments){
   console.log(nutriments);
   if(excesoAzucar(nutriments)){
-    document.getElementsById('azucar').style.visibility= 'visible';
+    document.getElementById('azucar').style.visibility= 'visible';
   }
   if(excesoSodio(nutriments)){
-    document.getElementsById('sodio').style.visibility= 'visible';
+    document.getElementById('sodio').style.visibility= 'visible';
   }
   if(excesoGrasas(nutriments)){
     document.getElementById('grasas').style.visibility= 'visible';
@@ -108,28 +113,70 @@ function mostrarOctogonos(nutriments){
   }
 }
 
+function limpiarOctogonos(){
+  var octogonos= document.getElementsByClassName('octogonos');
+  console.log(octogonos);
+  Array.from(octogonos).forEach(function clean(octogono){
+    octogono.style.visibility= 'hidden';
+  });
+}
+
+
+
 //CRITERIOS USADOS EN EL MODELO DE PERFIL DE NUTRIENTES DE LA OPS
 //LINK AL MODELO:
 // https://iris.paho.org/bitstream/handle/10665.2/18622/9789275318737_spa.pdf
 function excesoAzucar(nutriments){
-  
+  console.log(nutriments.sugars);
+  if(nutriments.sugars_unit === 'g' || nutriments.sugars_unit === ''){
+    return nutriments.sugars * 4 >= (nutriments['energy-kcal']/100)*10;
+  }
+  if(nutriments.sugars_unit === 'mg'){
+    return (nutriments.sugars/1000) * 4 >= (nutriments['energy-kcal']/100)*10;
+  }
+  return false;
 }
+
 function excesoSodio(nutriments){
-
+  console.log(nutriments.sodium);
+  if(nutriments.sodium_unit === 'g'){
+    return nutriments.sodium * 1000 >= nutriments['energy-kcal'];
+  }
+  if(nutriments.sodium_unit === 'mg'){
+    return nutriments.sodium >= nutriments['energy-kcal'];
+  }
+  return false;
 }
+
 function excesoGrasas(nutriments){
-
+  return nutriments.fat * 9 >= (nutriments['energy-kcal']/100)*30;
 }
+
 function excesoGrasasSat(nutriments){
-
+  return nutriments['saturated-fat'] * 9 >= (nutriments['energy-kcal']/100)*10;
 }
+
 function excesoCalorias(nutriments){
+  //no esta determinado por ahora
+  return false;
+}
 
-}
 function contieneEdulcorantes(nutriments){
-  
+  if('ingredients_text' in nutriments){
+    if(nutriments.ingredients_text.toLowerCase().includes('edulcorante') 
+      || nutriments.ingredients_text.toLowerCase().includes('polialcoholes')){
+      return true;
+    }
+  }  
+  return false;
 }
+
 function contieneCafeina(nutriments){
-  
+  if('ingredients_text' in nutriments){
+    if(nutriments.ingredients_text.toLowerCase().includes('cafe')){
+      return true;
+    }
+  }
+  return false;
 }
 
