@@ -1,7 +1,13 @@
 # app_nutricion
-
+Español:
 Podes probar en tu navegador abriendo este index.html y escribiendo en la consola emularCordova();
+En donde? Aca: https://mariopicasso.github.io/app_nutricion/
 
-Para armar la aplicación móvil, hacer un .zip con los archivos de esta carpeta y subirlo a https://www.podemosaprender.org/tpl_app_semilla_estatico/?app=semilla-apk#/
+Esta aplicacion fue una iniciativa de la comunidad Podemos Aprender: www.podemosaprender.org
 
-Para ver que plugins / funciones de cordoba estan disponibles en el apk que arma el servicio podes mirar aca https://github.com/podemosaprender/tpl_app_semilla_estatico/blob/master/cordova_demo.js y aca https://github.com/podemosaprender/tpl_app_semilla_estatico/blob/ed5971f7e1b7dc38160444676b1303f454db9a3e/0prelude.js#L856
+Utiliza el framework cordova para pasar de HTML,CSS y JS a un apk.
+Para armar la aplicación móvil, hacer un .zip con los archivos del directorio donde programo su pagina y subilo a https://www.podemosaprender.org/tpl_app_semilla_estatico/?app=semilla-apk#/
+
+
+
+
