@@ -53,7 +53,7 @@ function paintFrontEnd(data,id){
   var img= document.getElementById('img');
   if(data.status){
     btnSts.textContent= data.product.product_name;
-    barInfo.textContent= "El codigo es: " + data.code;
+    barInfo.textContent= data.code;
     
     //colocar imagen thumb del procuto
     if(data.product.image_front_thumb_url.length>0){
@@ -61,11 +61,7 @@ function paintFrontEnd(data,id){
     }
 
     //warning si no hay datos
-    if(!('sodium' in data.product.nutriments &&
-       'sugars' in data.product.nutriments && 
-        'fat' in data.product.nutriments)){
-      document.getElementById('faltanNutrientes').style.display= 'flex';
-    }
+    
     mostrarOctogonos(data.product.nutriments);
   }
   else{
@@ -78,11 +74,13 @@ function paintFrontEnd(data,id){
 
 //EMULAR LECTURAS EN LA PC
 emularLecturas= [
+  {text: "7794940000796"},
   {text: "7790040929906"}, //chocolinas, todos los datos
   {text: "7794520868341"}, //papitas
   {text: "7791058010662"}, //dulce de leche mafrey, todos los datos
   {text: "7622210812797"}, //juguito, no hay nutrientes. Lo mandas a openfoodfacts a rellenar?
   {text: "7622210852797"}, //no existe el producto. Lo mandas a openfoodfacts a agregar?
+   
 ];
 emularLecturasIdx= -1;
 function emularCordova() {
@@ -98,6 +96,10 @@ function emularCordova() {
 //OCTOGONOS
 function mostrarOctogonos(nutriments){
   console.log(nutriments);
+  if(!('sodium' in nutriments && 'sugars' in nutriments && 'fat' in nutriments)){
+      document.getElementById('faltanNutrientes').style.display= 'flex';
+  }
+
   if(excesoAzucar(nutriments)){
     document.getElementById('azucar').style.display= 'flex';
   }
@@ -137,6 +139,9 @@ function limpiarOctogonos(){
 // https://iris.paho.org/bitstream/handle/10665.2/18622/9789275318737_spa.pdf
 function excesoAzucar(nutriments){
   console.log(nutriments.sugars);
+  if(nutriments['energy-kcal']===0){
+    return false;
+  }
   if(nutriments.sugars_unit === 'g' || nutriments.sugars_unit === ''){
     return nutriments.sugars * 4 >= (nutriments['energy-kcal']/100)*10;
   }
@@ -148,6 +153,9 @@ function excesoAzucar(nutriments){
 
 function excesoSodio(nutriments){
   console.log(nutriments.sodium);
+  if(nutriments['energy-kcal']===0){
+    return false;
+  }
   if(nutriments.sodium_unit === 'g'){
     return nutriments.sodium * 1000 >= nutriments['energy-kcal'];
   }
@@ -158,10 +166,16 @@ function excesoSodio(nutriments){
 }
 
 function excesoGrasas(nutriments){
+  if(nutriments['energy-kcal']===0){
+    return false;
+  }
   return nutriments.fat * 9 >= (nutriments['energy-kcal']/100)*30;
 }
 
 function excesoGrasasSat(nutriments){
+  if(nutriments['energy-kcal']===0){
+    return false;
+  }
   return nutriments['saturated-fat'] * 9 >= (nutriments['energy-kcal']/100)*10;
 }
 
