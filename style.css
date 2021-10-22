@@ -125,32 +125,32 @@ button:hover, button:focus {
 
 #azucar{
   background-image: url(img/Azucares.png);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: none;
 }
 #sodio{
   background-image: url(img/Sodio.png);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: none;
 }
 #grasas{
   background-image: url(img/Grasas.png);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: none;
 }
 #grasas-sat{
   background-image: url(img/Grasas-Saturadas.png);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: none;
 }
 #calorias{
   background-image: url(img/Calorias.png);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   display: none;
 }
 #edulcorante{
