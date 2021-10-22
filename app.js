@@ -60,9 +60,9 @@ function paintFrontEnd(data,id){
       img.src= data.product.image_front_thumb_url; 
     }
 
-    //warning si no hay datos
     
-    mostrarOctogonos(data.product.nutriments);
+    console.log(data.product);
+    mostrarOctogonos(data.product);
   }
   else{
     btnSts.textContent= "";
@@ -95,38 +95,39 @@ function emularCordova() {
 
 
 //OCTOGONOS
-function mostrarOctogonos(nutriments){
-  console.log(nutriments);
-  if(!('sodium' in nutriments && 'sugars' in nutriments && 'fat' in nutriments)){
+function mostrarOctogonos(product){
+  
+
+  //warning si no hay datos
+  if(!('sodium' in product.nutriments && 'sugars' in product.nutriments && 'fat' in product.nutriments)){
       document.getElementById('faltanNutrientes').style.display= 'flex';
   }
 
-  if(excesoAzucar(nutriments)){
+  if(excesoAzucar(product.nutriments)){
     document.getElementById('azucar').style.display= 'flex';
   }
-  if(excesoSodio(nutriments)){
+  if(excesoSodio(product.nutriments)){
     document.getElementById('sodio').style.display= 'flex';
   }
-  if(excesoGrasas(nutriments)){
+  if(excesoGrasas(product.nutriments)){
     document.getElementById('grasas').style.display= 'flex';
   }
-  if(excesoGrasasSat(nutriments)){
+  if(excesoGrasasSat(product.nutriments)){
     document.getElementById('grasas-sat').style.display= 'flex';
   }
-  if(excesoCalorias(nutriments)){
+  if(excesoCalorias(product.nutriments)){
     document.getElementById('calorias').style.display= 'flex';
   }
-  if(contieneEdulcorantes(nutriments)){
+  if(contieneEdulcorantes(product)){
     document.getElementById('edulcorante').style.display= 'flex';
   }
-  if(contieneCafeina(nutriments)){
+  if(contieneCafeina(product)){
     document.getElementById('cafeina').style.display= 'flex';
   }
 }
 
 function limpiarOctogonos(){
   var octogonos= document.getElementsByClassName('octogonos');
-  console.log(octogonos);
   Array.from(octogonos).forEach(function clean(octogono){
     octogono.style.display= 'none';
   });
@@ -185,16 +186,16 @@ function excesoCalorias(nutriments){
   return false;
 }
 
-function contieneEdulcorantes(nutriments){
-  if('ingredients_text' in nutriments){
-    if(nutriments.ingredients_text.toLowerCase().includes('sacarina') 
-    || nutriments.ingredients_text.toLowerCase().includes('ciclamato')
-    || nutriments.ingredients_text.toLowerCase().includes('aspartame')
-    || nutriments.ingredients_text.toLowerCase().includes('acesulfame k')
-    || nutriments.ingredients_text.toLowerCase().includes('neohoesperidina')
-    || nutriments.ingredients_text.toLowerCase().includes('dihidrochalcona')
-    || nutriments.ingredients_text.toLowerCase().includes('sucralosa')
-    || nutriments.ingredients_text.toLowerCase().includes('glicósido de esteviol')
+function contieneEdulcorantes(product){
+  if('ingredients_text' in product){
+    if(product.ingredients_text.toLowerCase().includes('sacarina') 
+    || product.ingredients_text.toLowerCase().includes('ciclamato')
+    || product.ingredients_text.toLowerCase().includes('aspartame')
+    || product.ingredients_text.toLowerCase().includes('acesulfame k')
+    || product.ingredients_text.toLowerCase().includes('neohoesperidina')
+    || product.ingredients_text.toLowerCase().includes('dihidrochalcona')
+    || product.ingredients_text.toLowerCase().includes('sucralosa')
+    || product.ingredients_text.toLowerCase().includes('glicósido de esteviol')
     ){
       return true;
     }
@@ -202,9 +203,9 @@ function contieneEdulcorantes(nutriments){
   return false;
 }
 
-function contieneCafeina(nutriments){
-  if('ingredients_text' in nutriments){
-    if(nutriments.ingredients_text.toLowerCase().includes('cafe')){
+function contieneCafeina(product){
+  if('ingredients_text' in product){
+    if(product.ingredients_text.toLowerCase().includes('cafe')){
       return true;
     }
   }
