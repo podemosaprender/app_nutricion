@@ -124,43 +124,43 @@ button:hover, button:focus {
 }
 
 #azucar{
-  background-image: url(img/azucar.png);
-  height: 70px;
-  width: 70px;
+  background-image: url(img/Azucares.png);
+  height: 80px;
+  width: 80px;
   display: none;
 }
 #sodio{
-  background-image: url(img/sodio.png);
-  height: 70px;
-  width: 70px;
+  background-image: url(img/Sodio.png);
+  height: 80px;
+  width: 80px;
   display: none;
 }
 #grasas{
-  background-image: url(img/grasas.png);
-  height: 70px;
-  width: 70px;
+  background-image: url(img/Grasas.png);
+  height: 80px;
+  width: 80px;
   display: none;
 }
 #grasas-sat{
-  background-image: url(img/grasas-sat.png);
-  height: 70px;
-  width: 70px;
+  background-image: url(img/Grasas-Saturadas.png);
+  height: 80px;
+  width: 80px;
   display: none;
 }
 #calorias{
-  background-image: url(img/calorias.png);
-  height: 70px;
-  width: 70px;
+  background-image: url(img/Calorias.png);
+  height: 80px;
+  width: 80px;
   display: none;
 }
 #edulcorante{
-  background-image: url(img/edulcorantes.png);
+  background-image: url(img/Edulcorantes.png);
   height: 37px;
   width: 176px;
   display: none;
 }
 #cafeina{
-  background-image: url(img/cafeina.png);
+  background-image: url(img/Cafeina.png);
   height: 37px;
   width: 135px;
   display: none;

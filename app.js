@@ -74,6 +74,7 @@ function paintFrontEnd(data,id){
 
 //EMULAR LECTURAS EN LA PC
 emularLecturas= [
+  {text: "7795735000335"},
   {text: "7794940000796"},
   {text: "7790040929906"}, //chocolinas, todos los datos
   {text: "7794520868341"}, //papitas
@@ -186,8 +187,15 @@ function excesoCalorias(nutriments){
 
 function contieneEdulcorantes(nutriments){
   if('ingredients_text' in nutriments){
-    if(nutriments.ingredients_text.toLowerCase().includes('edulcorante') 
-      || nutriments.ingredients_text.toLowerCase().includes('polialcoholes')){
+    if(nutriments.ingredients_text.toLowerCase().includes('sacarina') 
+    || nutriments.ingredients_text.toLowerCase().includes('ciclamato')
+    || nutriments.ingredients_text.toLowerCase().includes('aspartame')
+    || nutriments.ingredients_text.toLowerCase().includes('acesulfame k')
+    || nutriments.ingredients_text.toLowerCase().includes('neohoesperidina')
+    || nutriments.ingredients_text.toLowerCase().includes('dihidrochalcona')
+    || nutriments.ingredients_text.toLowerCase().includes('sucralosa')
+    || nutriments.ingredients_text.toLowerCase().includes('glicósido de esteviol')
+    ){
       return true;
     }
   }  
