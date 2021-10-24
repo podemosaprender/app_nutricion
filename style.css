@@ -25,14 +25,14 @@
 }
 #second_half{
   background-color: #BF8B4B;
-  height: 50%; 
+  height: 44%; 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 footer{
   background-color: #037334;
-  height: 10%;
+  height: 16%;
   margin-top: 0;
 }
 
@@ -177,8 +177,10 @@ footer{
 .credits{
   color: #FAEBD7;
   font-family: 'Righteous', cursive;
+  font-weight: 50;
   margin: .3rem;
   padding: .1rem;
+  font-size: .7rem;
   text-align: center;
 }
 

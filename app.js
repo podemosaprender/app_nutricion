@@ -1,5 +1,3 @@
-//============================================================
-//S: barcode
 
 Capture_barcode_Opts= { //DFLT
         preferFrontCamera : false, // iOS and Android
