@@ -1,13 +1,15 @@
 # app_nutricion
 Español:
-Aplicacion disponible en la Play Store: https://play.google.com/store/apps/details?id=com.nutri.fic
-Podes probar en tu navegador abriendo este index.html y escribiendo en la consola emularCordova();
-En donde? Aca: https://mariopicasso.github.io/app_nutricion/
+Escaneá el código de barras del producto que quieras, y Nutri te dice si tiene exceso de sodio, azúcar, grasas, grasas saturadas o calorías. También te avisa si hay edulcorantes o cafeína!
 
-Esta aplicacion fue una iniciativa de la comunidad Podemos Aprender: www.podemosaprender.org
+Aplicación disponible en la Play Store: https://play.google.com/store/apps/details?id=com.nutri.fic
 
-Utiliza el framework Cordova para pasar de HTML,CSS y JS a un apk.
-Para armar la aplicación móvil, hacer un .zip con los archivos del directorio donde programo su pagina y subilo a https://www.podemosaprender.org/tpl_app_semilla_estatico/?app=semilla-apk#/
+Podes probar en tu navegador abriendo el siguiente link y escribiendo en la consola emularCordova();
+https://mariopicasso.github.io/app_nutricion/
+
+Esta aplicación fue una iniciativa de la comunidad Podemos Aprender: www.podemosaprender.org
+
+Utilizo el framework Cordova para pasar de HTML,CSS y JS a un apk.
 
 English:
 Now the app is avaible on Play Store, check the following link:
