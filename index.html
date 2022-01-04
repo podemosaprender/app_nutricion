@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <head>
-    <title>Podemos Aprendero</title>
- 
+    <title>Podemos Aprender</title>
+    <link rel="stylesheet" href="style.css">
 		<meta name="format-detection" content="telephone=no">
 		<meta name="msapplication-tap-highlight" content="no">
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -27,79 +26,44 @@
   <body>
 		<!-- A: falla en browser PERO lo usamos para apk android/cordova -->
     <script type="text/javascript" src="cordova.js"></script>
-		<h1>Hola</h1>
-
-		<div id="status">Cargando...</div>
-
-		<button id="scan">Leer código</button>
-
-		<script>
-			//S: datos
-
-			DATOS= {
-				"0475019546625": "Libro de Mau en la demo",
-			}
-
-			//============================================================
-			//S: barcode
-
-			Capture_barcode_Opts= { //DFLT
-							preferFrontCamera : false, // iOS and Android
-							showFlipCameraButton : true, // iOS and Android
-							showTorchButton : true, // iOS and Android
-							torchOn: false, // Android, launch with the torch switched on (if available)
-							saveHistory: true, // Android, save scan history (default false)
-							prompt : "Place a barcode inside the scan area", // Android
-							resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-							formats : "QR_CODE,PDF_417,EAN_13", // leyo DNI, qr wikipedia y codigo barras libro
-							orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-							disableAnimations : true, // iOS disable
-							SuccessBeep: false // iOS and Android
-						}
-
-			function capture_barcode_p(opts) {
-							//SEE: https://www.npmjs.com/package/cordova-plugin-qr-barcode-scanner
-							opts= opts || Capture_barcode_Opts;
-							return new Promise( (onBarCodeOk, onBarCodeError) =>
-											cordova.plugins.barcodeScanner.scan( onBarCodeOk, onBarCodeError, opts));
-						}
-
-
-
-			function _init() {
-				btnSts= document.getElementById("status");
-				btnScan= document.getElementById("scan");
-
-				btnSts.innerHTML= "Listo!";
-				btnScan.onclick= function (ev) {
-					btnSts.innerHTML= "Leyendo";
-					capture_barcode_p()
-						.then( codigo => { 
-							var id= codigo.text;
-							var dato= DATOS[id];
-							btnSts.innerHTML="Lei <b>"+JSON.stringify(codigo)+"</b>"+
-								"<br>"+(dato || "ese codigo no figura en nuestra base");
-						});
-				}
-			}
-
-			document.addEventListener("deviceready", _init, false);
-
-			emularLecturas= [
-				{text: "0475019546625"},
-				{text: "666"},
-				{error: "errorisimo"}, //TODO: que devuelve cuando usuaria cancela o da error
-			];
-
-			emularLecturasIdx= -1;
-			function emularCordova() {
-				_init();
-				capture_barcode_p= function () { 
-					emularLecturasIdx= (emularLecturasIdx + 1) % emularLecturas.length;
-					return Promise.resolve(emularLecturas[ emularLecturasIdx ]); 
-				}
-			}
-		</script>
+    <div id="container">
+      <div id="first_half">
+        <h1 id="title">nutri</h1>
+        <div id="info">
+          <h2 id="status"></h2>
+          <p id="bar-info"></p>
+          <div id="img-container">
+            <img src="" alt="" id="img">
+          </div>
+        </div>
+        <div id="button-container">
+          <button id="scan">Leer código</button>
+        </div>
+      </div>
+      <div id="second_half">
+        <div class="row">
+          <div class="octogonos" id="azucar"></div>
+          <div class="octogonos" id="cafeina"></div>
+          <div class="octogonos" id="sodio"></div>  
+        
+          <div id="faltanNutrientes">No hay nutrientes especificados en la base de datos de ar.openfoodfacts.org Puede dirgirse a la pagina y colaborar completando los datos del producto</div>
+          <div class="octogonos" id="grasas"></div>
+          <div class="octogonos" id="grasas-sat"></div>
+          <div class="octogonos" id="calorias"></div>
+        
+          <div class="octogonos" id="edulcorante"></div>
+        </div>
+      </div>
+      <footer>
+        
+        <a class="credits" href="https://www.podemosaprender.org/">www.podemosaprender.org</a>
+        <p class="credits">Licencia GNU. Datos sacados de<a class="credits" href="https://ar.openfoodfacts.org/">www.openfoodfacts.org</a></p>
+        <p class="credits" >Desarrollador:<a class="credits" href="https://www.linkedin.com/in/mario-picasso/">Mario Picasso</a></p>
+        <p class="credits">CUANTO es un exceso está determinado por la<a class="credits" href="https://iris.paho.org/bitstream/handle/10665.2/18622/9789275318737_spa.pdf">OPS</a></p>
+      </footer>
+    </div>
+    
+		<script type="text/javascript" src="app.js"></script>
 	</body>
 </html>
 

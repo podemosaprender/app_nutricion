@@ -1,7 +1,28 @@
 # app_nutricion
+Español:
+Escaneá el código de barras del producto que quieras, y Nutri te dice si tiene exceso de sodio, azúcar, grasas, grasas saturadas o calorías. También te avisa si hay edulcorantes o cafeína!
 
-Podes probar en tu navegador abriendo este index.html y escribiendo en la consola emularCordova();
+Aplicación disponible en la Play Store: https://play.google.com/store/apps/details?id=com.nutri.fic
 
-Para armar la aplicación móvil, hacer un .zip con los archivos de esta carpeta y subirlo a https://www.podemosaprender.org/tpl_app_semilla_estatico/?app=semilla-apk#/
+Podes probar en tu navegador abriendo el siguiente link y escribiendo en la consola emularCordova();
+https://mariopicasso.github.io/app_nutricion/
 
-Para ver que plugins / funciones de cordoba estan disponibles en el apk que arma el servicio podes mirar aca https://github.com/podemosaprender/tpl_app_semilla_estatico/blob/master/cordova_demo.js y aca https://github.com/podemosaprender/tpl_app_semilla_estatico/blob/ed5971f7e1b7dc38160444676b1303f454db9a3e/0prelude.js#L856
+Esta aplicación fue una iniciativa de la comunidad Podemos Aprender: www.podemosaprender.org
+
+Utilizo el framework Cordova para pasar de HTML,CSS y JS a un apk.
+
+English:
+Now the app is avaible on Play Store, check the following link:
+https://play.google.com/store/apps/details?id=com.nutri.fic
+
+This App is directed to support the creation of the new Argentina´s food law requirements.
+The law was recently approved and was created to advice population about the exceeding components in the nutrition facts label.
+You can find the hashtag #EtiquetadoClaroYA in Twitter and LinkedIn.
+The application scans the barcode of the product and displays warnings about the exceeding nutrients or other ingredients like caffeine and caloric sweeteners.
+
+I have used the OpenFoodFacts API for the data.
+
+This App is made transforming plain HTML,CSS and JS to an APK using Apache Cordova.
+
+
+
